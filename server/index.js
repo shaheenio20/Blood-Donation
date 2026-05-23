@@ -41,6 +41,10 @@ async function getContactCollection() {
   await connectClient();
   return client.db("bloodDB").collection("contacts");
 }
+async function getProfileCollection() {
+  await connectClient();
+  return client.db("bloodDB").collection("profiles");
+}
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -49,7 +53,7 @@ async function run() {
     const userCollection = await getUserCollection();
     const bloodDonorCollection = await getBloodDonorCollection();
     const contactCollection = await getContactCollection();
-
+    const profileCollection = await getProfileCollection();
     // users api
     app.post("/users", async(req, res) => {
       try{
@@ -157,6 +161,17 @@ async function run() {
         res.send(result);
       } catch (error) {
         console.error("Error creating contact:", error);
+        res.status(500).send({ error: true, message: error.message });
+      }
+    });
+    // profile api
+    app.post("/profiles", async(req, res) => {
+      try{
+        const profileUpdate = req.body;
+        const result =  await profileCollection.insertOne(profileUpdate);
+        res.send(result);
+      } catch (error) {
+        console.error("Error creating profile:", error);
         res.status(500).send({ error: true, message: error.message });
       }
     });
