@@ -182,12 +182,12 @@ const Home = () => {
             >
               Donate Now
             </Link>
-            <a
-              href="#why-choose-us"
+            <Link
+              to="/findDonor"
               className="w-full sm:w-auto px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 font-bold text-lg rounded-xl hover:bg-gray-50 hover:border-gray-300 hover:scale-105 active:scale-95 transition-all duration-300 ease-out shadow-sm text-center"
             >
               See More
-            </a>
+            </Link>
           </div>
         </div>
       </div>

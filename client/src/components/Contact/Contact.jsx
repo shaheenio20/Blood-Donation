@@ -130,7 +130,7 @@ const Contact = () => {
                 <input
                   type="submit"
                   value="Submit"
-                  className="btn bg-red-600 text-white"
+                  className="btn btn-primary bg-red-600 border-red-600 hover:bg-red-700 hover:border-red-700 text-white font-bold"
                 />
               </div>
             </form>

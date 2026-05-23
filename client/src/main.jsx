@@ -12,6 +12,7 @@ import FindDonor from "./components/AllDonors/AllDonor.jsx";
 import UpdateDonor from "./components/UpdateDonor/UpdateDonor.jsx";
 import SearchDonor from "./components/SearchDonor/SearchDonor.jsx";
 import Contact from "./components/Contact/Contact.jsx";
+import Profile from "./components/Profile/Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home></Home>,
       },
+      {
+        path: "/profile",
+        element: <Profile></Profile>,
+      },
      
       {
         path: "/findDonor",
@@ -43,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact></Contact>,
+      },
+      {
+        path: "/profile",
+        element: <Profile></Profile>
       }
     ],
   },

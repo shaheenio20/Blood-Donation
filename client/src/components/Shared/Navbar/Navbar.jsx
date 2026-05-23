@@ -1,11 +1,39 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.jpg";
 import { FaBars, FaTimes, FaHeartbeat } from "react-icons/fa";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        Swal.fire({
+          title: "Logged out successfully!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+  };
 
   const handleLinkClick = () => {
     setIsSidebarOpen(false);
@@ -69,12 +97,55 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 gap-1.5">{navLinks}</ul>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end flex items-center gap-3">
             <a href="/findDonor">
               <button className="px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-xl shadow-md shadow-red-500/10 hover:shadow-red-500/25 hover:from-red-700 hover:to-rose-700 hover:scale-[1.03] active:scale-95 transition-all duration-300 ease-out flex items-center gap-1.5">
                 <FaHeartbeat /> Get Started
               </button>
             </a>
+            {user && (
+              <div className="dropdown dropdown-end hidden lg:inline-block">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar border border-red-100 hover:border-red-300 transition-all duration-200"
+                >
+                  <div className="w-10 rounded-full">
+                    <img
+                      alt="User Avatar"
+                      src={user.photoURL || `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.email}`}
+                    />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow-2xl bg-white border border-gray-100 rounded-2xl w-52"
+                >
+                  <div className="px-4 py-2 border-b border-gray-100 mb-1">
+                    <p className="font-bold text-gray-800 text-sm truncate">
+                      {user.displayName || "User"}
+                    </p>
+                    <p className="text-gray-500 text-xs truncate">{user.email}</p>
+                  </div>
+                  <li>
+                    <Link
+                      to="/profile"
+                      className="font-semibold text-gray-700 hover:text-red-600 hover:bg-rose-50/50 py-2.5"
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="font-semibold text-red-600 hover:bg-red-50 py-2.5"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -147,6 +218,41 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
+
+          {/* User Profile at the end of mobile drawer if logged in */}
+          {user && (
+            <div className="pt-6 border-t border-gray-100 flex flex-col gap-3">
+              <div className="flex items-center gap-3">
+                <img
+                  className="w-10 h-10 rounded-full border border-red-100"
+                  src={user.photoURL || `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.email}`}
+                  alt="User Avatar"
+                />
+                <div className="overflow-hidden">
+                  <p className="font-bold text-gray-800 text-sm truncate">{user.displayName || "User"}</p>
+                  <p className="text-gray-500 text-xs truncate">{user.email}</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Link
+                  to="/profile"
+                  onClick={handleLinkClick}
+                  className="flex-1 text-center py-2 px-3 text-xs font-semibold bg-gray-50 text-gray-700 hover:bg-rose-50 hover:text-red-600 rounded-lg transition-colors border border-gray-100"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    handleLinkClick();
+                  }}
+                  className="flex-1 text-center py-2 px-3 text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors border border-red-100"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
