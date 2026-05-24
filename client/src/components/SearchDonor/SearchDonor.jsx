@@ -15,7 +15,7 @@ const SearchDonor = () => {
     if (bg && bg !== "All") queryParams.append("bloodGroup", bg);
     if (loc && loc.trim() !== "") queryParams.append("location", loc.trim());
 
-    fetch(`http://localhost:5000/bloodDonors?${queryParams.toString()}`)
+    fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors?${queryParams.toString()}`)
       .then((res) => res.json())
       .then((data) => {
         setBloodDonors(data);
@@ -59,7 +59,7 @@ const SearchDonor = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bloodDonors/${_id}`, {
+        fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

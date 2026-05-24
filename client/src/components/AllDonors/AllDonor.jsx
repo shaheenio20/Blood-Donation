@@ -17,7 +17,7 @@ const FindDonor = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed)
-        fetch(`http://localhost:5000/bloodDonors/${_id}`, {
+        fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

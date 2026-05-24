@@ -29,7 +29,7 @@ const Login = () => {
         form.reset();
 
         // Perform backend update in the background (will not block the user if missing)
-        fetch("http://localhost:5000/users", {
+        fetch("https://blood-donation-silk-five.vercel.app/users", {
           method: "PATCH",
           headers: {
             "content-type": "application/json",

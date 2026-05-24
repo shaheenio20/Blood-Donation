@@ -14,7 +14,7 @@ const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         console.log(res.user);
-        fetch("http://localhost:5000/users", {
+        fetch("https://blood-donation-silk-five.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

@@ -44,7 +44,7 @@ const Profile = () => {
 
       // 4. Update profiles DB (backend)
       const profileUpdate = { name, email, password };
-      const response = await fetch("http://localhost:5000/profiles", {
+      const response = await fetch("https://blood-donation-silk-five.vercel.app/profiles", {
         method: "POST",
         headers: {
           "content-type": "application/json"

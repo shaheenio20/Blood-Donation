@@ -36,7 +36,7 @@ const DonateBlood = () => {
       status: "Completed",
     };
 
-    fetch("http://localhost:5000/bloodDonors", {
+    fetch("https://blood-donation-silk-five.vercel.app/bloodDonors", {
       method: "POST",
       headers: {
         "content-type": "application/json",

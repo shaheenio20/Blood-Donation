@@ -20,7 +20,7 @@ const UpdateDonor = () => {
             bloodGroup,
             location
         }
-        fetch(`http://localhost:5000/bloodDonors/${_id}`, {
+        fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors/${_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

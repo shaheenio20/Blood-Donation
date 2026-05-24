@@ -14,7 +14,7 @@ const Contact = () => {
     const phone = form.phone.value;
     const message = form.message.value;
     const contact = { name, email, district, phone, message };
-    fetch("http://localhost:5000/contacts", {
+    fetch("https://blood-donation-silk-five.vercel.app/contacts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

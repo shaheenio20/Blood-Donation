@@ -28,7 +28,7 @@ const DonationHistory = () => {
   // 2. Fetch logged donations matching user's email from MongoDB
   const fetchDonations = (email) => {
     setLoading(true);
-    fetch(`http://localhost:5000/bloodDonors?email=${email}`)
+    fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors?email=${email}`)
       .then((res) => {
         if (res.ok) return res.json();
         return [];
@@ -88,7 +88,7 @@ const DonationHistory = () => {
       status: "Completed",
     };
 
-    fetch("http://localhost:5000/bloodDonors", {
+    fetch("https://blood-donation-silk-five.vercel.app/bloodDonors", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         path: "/findDonor",
         element: <FindDonor></FindDonor>,
         loader: () =>
-          fetch("http://localhost:5000/bloodDonors").then((res) => res.json()),
+          fetch("https://blood-donation-silk-five.vercel.app/bloodDonors").then((res) => res.json()),
       },
       {
         path: "/searchDonor",
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
     path: "/updateDonor/:id",
     element: <UpdateDonor></UpdateDonor>,
     loader: ({ params }) =>
-      fetch(`http://localhost:5000/bloodDonors/${params.id}`).then((res) =>
+      fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors/${params.id}`).then((res) =>
         res.json(),
       ),
   },

@@ -27,7 +27,7 @@ const DashboardOverview = () => {
       if (currentUser) {
         setUser(currentUser);
         // Simulate reading donor availability and profile data from database
-        fetch(`http://localhost:5000/bloodDonors?email=${currentUser.email}`)
+        fetch(`https://blood-donation-silk-five.vercel.app/bloodDonors?email=${currentUser.email}`)
           .then((res) => {
             if (res.ok) return res.json();
             return [];
@@ -55,7 +55,7 @@ const DashboardOverview = () => {
 
     try {
       // Simulate/perform patch update to db
-      const response = await fetch(`http://localhost:5000/users`, {
+      const response = await fetch(`https://blood-donation-silk-five.vercel.app/users`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json"
