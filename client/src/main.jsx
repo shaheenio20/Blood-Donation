@@ -13,6 +13,9 @@ import UpdateDonor from "./components/UpdateDonor/UpdateDonor.jsx";
 import SearchDonor from "./components/SearchDonor/SearchDonor.jsx";
 import Contact from "./components/Contact/Contact.jsx";
 import Profile from "./components/Profile/Profile.jsx";
+import DashboardLayout from "./components/Dashboard/DashboardLayout.jsx";
+import DashboardOverview from "./components/Dashboard/DashboardOverview.jsx";
+import DonationHistory from "./components/Dashboard/DonationHistory.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +56,24 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <Profile></Profile>
       }
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: "",
+        element: <DashboardOverview></DashboardOverview>,
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>,
+      },
+      {
+        path: "history",
+        element: <DonationHistory></DonationHistory>,
+      },
     ],
   },
   {

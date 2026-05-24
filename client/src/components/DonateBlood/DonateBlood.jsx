@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import auth from "../firebase/firebase.config";
+import { onAuthStateChanged } from "firebase/auth";
+
 const DonateBlood = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const handleDonate = (e) => {
     e.preventDefault();
 
@@ -18,6 +30,10 @@ const DonateBlood = () => {
       phone,
       bloodGroup,
       location,
+      email: user?.email || "",
+      date: new Date().toISOString().split("T")[0],
+      bags: 1,
+      status: "Completed",
     };
 
     fetch("http://localhost:5000/bloodDonors", {
@@ -79,8 +95,10 @@ const DonateBlood = () => {
               <input
                 type="text"
                 name="name"
+                key={user?.uid || "guest"}
+                defaultValue={user?.displayName || ""}
                 placeholder="John Doe"
-                className="input input-bordered w-full px-4 py-3 rounded-xl border-gray-200 focus:border-red-500 focus:ring focus:ring-red-100 transition-all duration-200 bg-white"
+                className="input input-bordered w-full px-4 py-3 rounded-xl border-gray-200 focus:border-red-500 focus:ring focus:ring-red-100 transition-all duration-200 bg-white text-gray-800"
                 required
               />
             </div>

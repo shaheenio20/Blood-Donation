@@ -11,7 +11,6 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.amsiamk.mongodb.net/?appName=Cluster0`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -47,7 +46,6 @@ async function getProfileCollection() {
 }
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
     const userCollection = await getUserCollection();
@@ -85,8 +83,11 @@ async function run() {
     // Blood donors api
     app.get("/bloodDonors", async(req, res) => {
       try {
-        const { bloodGroup, location } = req.query;
+        const { bloodGroup, location, email } = req.query;
         let query = {};
+        if (email && email.trim() !== "") {
+          query.email = email.trim();
+        }
         if (bloodGroup && bloodGroup !== "" && bloodGroup !== "All") {
           query.bloodGroup = bloodGroup;
         }
@@ -179,7 +180,6 @@ async function run() {
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
     //await client.close();
   }
 }

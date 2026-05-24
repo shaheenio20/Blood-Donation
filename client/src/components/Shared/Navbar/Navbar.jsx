@@ -129,10 +129,10 @@ const Navbar = () => {
                   </div>
                   <li>
                     <Link
-                      to="/profile"
+                      to="/dashboard"
                       className="font-semibold text-gray-700 hover:text-red-600 hover:bg-rose-50/50 py-2.5"
                     >
-                      Profile
+                      Dashboard
                     </Link>
                   </li>
                   <li>
@@ -235,11 +235,11 @@ const Navbar = () => {
               </div>
               <div className="flex gap-2">
                 <Link
-                  to="/profile"
+                  to="/dashboard"
                   onClick={handleLinkClick}
                   className="flex-1 text-center py-2 px-3 text-xs font-semibold bg-gray-50 text-gray-700 hover:bg-rose-50 hover:text-red-600 rounded-lg transition-colors border border-gray-100"
                 >
-                  Profile
+                  Dashboard
                 </Link>
                 <button
                   onClick={() => {

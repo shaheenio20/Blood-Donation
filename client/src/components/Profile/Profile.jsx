@@ -60,8 +60,6 @@ const Profile = () => {
         timer: 1500,
         showConfirmButton: false
       });
-      
-      // Clear password field after success
       setPassword("");
     } catch (error) {
       console.error("Error updating profile:", error);
